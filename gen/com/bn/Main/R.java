@@ -74,18 +74,20 @@ public final class R {
         public static final int main_linear=0x7f09000d;
         public static final int menu=0x7f09000f;
         public static final int menu_2=0x7f090000;
-        public static final int mysurfaceview=0x7f090020;
+        public static final int mysurfaceview=0x7f090022;
         public static final int object=0x7f090012;
-        public static final int ok=0x7f090021;
-        public static final int path=0x7f090022;
+        public static final int ok=0x7f090023;
+        public static final int path=0x7f090024;
         public static final int preview=0x7f09000b;
         public static final int print=0x7f090002;
         public static final int property=0x7f090013;
+        public static final int redo=0x7f090020;
         public static final int right_relative=0x7f090014;
         public static final int save=0x7f090004;
         public static final int slide1=0x7f090010;
         public static final int slide2=0x7f090016;
         public static final int target=0x7f090008;
+        public static final int undo=0x7f090021;
     }
     public static final class layout {
         public static final int draw_main=0x7f030000;
