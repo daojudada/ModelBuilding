@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:background="@color/border_background"
+	>
+ 	
+<TextView
+    android:id="@+id/target"
+    android:layout_width="@dimen/width"
+    android:layout_height="@dimen/textheight"
+    android:gravity="center"
+    android:textColor="#000"
+    android:textSize="16sp" />
+ 	
+<ListView
+    android:id="@+id/list"
+    android:layout_width="@dimen/width"
+    android:layout_height="@dimen/height"
+    android:layout_below="@+id/target"
+    android:background="@color/main_background"
+    android:divider="#000"
+    android:dividerHeight="1px" />
+
+<LinearLayout android:layout_width="@dimen/width"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_below="@id/list"
+    android:padding="10dp">
+
+<Button
+    android:id="@+id/cancel"
+    android:layout_width="@dimen/buttonwidth"
+    android:layout_height="@dimen/buttonheight"
+    	android:layout_weight="1"
+    android:text="CANCEL"/>
+       		
+<TextView android:layout_width="@dimen/buttonwidth"
+    	android:layout_height="@dimen/buttonheight"
+    	android:layout_weight="1"/>
+
+<Button android:id="@+id/preview"
+    	android:layout_width="@dimen/buttonwidth"
+   	 	android:layout_height="@dimen/buttonheight"
+    	android:layout_weight="1"
+    	android:text="PREVIEW"/>
+
+<Button android:id="@+id/load"
+    	android:layout_width="@dimen/buttonwidth"
+    	android:layout_height="@dimen/buttonheight"
+    	android:layout_weight="1"
+   		android:text="LOAD"/>
+    
+</LinearLayout>
+
+<Button
+    android:id="@+id/back"
+    android:layout_width="@dimen/backbutton"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/list"
+    android:background="@drawable/back" />
+
+</RelativeLayout>
