@@ -117,7 +117,7 @@
             android:background="@drawable/cone"/>  
     
 	</LinearLayout>
-    
+	 
     <Button android:id="@+id/delete"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -125,27 +125,8 @@
 		android:layout_alignParentRight="true"
 		android:layout_alignParentBottom="true"/>
 		        
-    <Button
-        android:id="@+id/redo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/delete"
-        android:layout_alignParentRight="true"
-        android:text="REDO" />
-
-    <Button
-        android:id="@+id/undo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/redo"
-        android:layout_alignParentRight="true"
-        android:text="UNDO" />
-    
     <com.bn.Main.MySurfaceView android:id="@+id/mysurfaceview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center"/>
-
-
-
 </RelativeLayout>

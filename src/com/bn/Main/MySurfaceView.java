@@ -13,7 +13,6 @@ import com.bn.Object.TextureRectDouble;
 import com.bn.Struct1.BooleanModeller;
 import com.bn.Struct1.Bound;
 import com.bn.Struct1.Struct.*;
-import com.bn.Util.Indesign;
 import com.bn.Util.LoadUtil;
 import com.bn.Util.VectorUtil;
 
@@ -137,9 +136,6 @@ public class MySurfaceView extends GLSurfaceView
 	TextureRectDouble beginFace; 	//要贴合面
 	TextureRectDouble endFace; 	//被贴合面
 	
-	Indesign indesign;//redo和undo功能
-	
-	private boolean isPush=false;//判断是否进行入栈
 	public boolean isShowBeginFace = false;//判断单手指操作是否被锁定   
    	public boolean isShowEndFace = false;//判断双手指操作是否被锁定
    	private boolean hasLoad = false;//是否初始化完成
@@ -195,9 +191,6 @@ public class MySurfaceView extends GLSurfaceView
         camera =new Camera();
         //初始化光源
         MatrixState.setLightLocation(0 , 100 , 0);
-        
-        //初始化工作栈和恢复栈
-        indesign=new Indesign();
 	}
 
     
@@ -263,7 +256,6 @@ public class MySurfaceView extends GLSurfaceView
 								    			b.isChoosed=false;
 								        }
 										curBody.isChoosed = true;
-										isPush=true;
 									}
 			            		}
 			            		else
@@ -382,7 +374,7 @@ public class MySurfaceView extends GLSurfaceView
 				{			
 					Vector2f Vector2fP1MoveP2 = new Vector2f(e.getX(0) - locationX0DownP2,Constant.HEIGHT-e.getY(0) - locationY0DownP2);//第一个手指向量
 					Vector2f Vector2fP2MoveP2 = new Vector2f(e.getX(1) - locationX1DownP2,Constant.HEIGHT-e.getY(1) - locationY1DownP2);//第二个手指向量
-					isPush=true;
+					
 					
 					//双指平移
 					if(VectorUtil.Product(Vector2fP1MoveP2,Vector2fP2MoveP2)>0&&
@@ -523,7 +515,7 @@ public class MySurfaceView extends GLSurfaceView
 							VectorUtil.Product(Vector2fP0,Vector2fP2)>0&&
 							VectorUtil.Product(Vector2fP1,Vector2fP2)>0)
 					{
-						isPush=true;
+						
 						//复制一个3D图元
 						if(isCopy)
 						{
@@ -604,7 +596,6 @@ public class MySurfaceView extends GLSurfaceView
 		                    	curBody.xScale *=(scale01+scale02+scale12)/3;	
 		                    	curBody.yScale *=(scale01+scale02+scale12)/3;
 		                    	curBody.zScale *=(scale01+scale02+scale12)/3;
-		                    	isPush=true;
 		                    }
 		                    Vector2fP01DownP3=new Vector2f(e.getX(0)-e.getX(1),e.getY(0)-e.getY(1));
 		                    Vector2fP02DownP3=new Vector2f(e.getX(0)-e.getX(2),e.getY(0)-e.getY(2));
@@ -635,7 +626,6 @@ public class MySurfaceView extends GLSurfaceView
 							curBody.getFitTargetFace(fitFingerDirection[0],1),
 							fitTargetBody.getFitTargetFace(fitFingerDirection[1],-1),
 							fitTargetBody);
-					isPush=true;
 				}
 				modeP1 =1;
 				fitMode =0;
@@ -644,18 +634,6 @@ public class MySurfaceView extends GLSurfaceView
 				isShowEndFace=false;
 				isP1Lock=false;
 				isP2Lock=false;
-				
-				if(isPush)
-				{
-					Vector<Body> temp=new Vector<Body>();
-					for(Body e1:BodyAll)
-						{
-							Body tempBody=(Body) e1.clone();
-							temp.add(tempBody);
-						}
-					indesign.addRedoStack(temp);
-					isPush=false;
-				}
 				break; 
         }
 
@@ -714,7 +692,6 @@ public class MySurfaceView extends GLSurfaceView
     
     //新建物体
     public void createObject(int Type,boolean isNew){
-    	boolean isTemp=false;
     	if(isNew==true)
     	{
 	    	if(Type==1)
@@ -737,7 +714,6 @@ public class MySurfaceView extends GLSurfaceView
 	    		Solid s=new Solid(MySurfaceView.this,sphere);
 	    		BodyAll.add(s);
 	    	}
-	    	isTemp=true;
     	}
     	else
     	{
@@ -752,19 +728,6 @@ public class MySurfaceView extends GLSurfaceView
     			b.isChoosed=false;
         }
     	curBody.isChoosed=true;
-    	
-    	if(isTemp)
-    	{
-    		isTemp=false;
-    		Vector<Body> temp=new Vector<Body>();
-    		for(Body e1:BodyAll)
-    			{
-    				Body tempBody=(Body) e1.clone();
-    				temp.add(tempBody);
-    			}
-    		indesign.addRedoStack(temp);
-    	}
-    	
     }
 
     //新建布尔物体
@@ -800,14 +763,6 @@ public class MySurfaceView extends GLSurfaceView
 	    			b.isChoosed=false;
 	        }
 	    	curBody.isChoosed=true;
-	    	
-	    	Vector<Body> temp=new Vector<Body>();
-			for(Body e1:BodyAll)
-				{
-					Body tempBody=(Body) e1.clone();
-					temp.add(tempBody);
-				}
-			indesign.addRedoStack(temp);
     	}
     	else
     	{
@@ -943,7 +898,7 @@ public class MySurfaceView extends GLSurfaceView
 	            	//s.drawSelf(1);
 	            	MatrixState.popMatrix();//出栈
 	            } 
-	            /*
+	            
 	            if(BodyAll.size()==1)
 	            {
 	            	Solid s=(Solid)curBody;
@@ -952,7 +907,7 @@ public class MySurfaceView extends GLSurfaceView
 	            {
 	            	stlPrint=null;
 	            }
-	            */
+	            
             }
         }  
 
@@ -1015,44 +970,5 @@ public class MySurfaceView extends GLSurfaceView
             redTexId = initTexture(redBm,true);//设置默认纹理
         }   
     }
-	
-	public void undo()
-	{
-		if(indesign.undoCheck()){
-			Vector<Body> temp=new Vector<Body>();
-			for(Body e:indesign.Undo())
-			{
-				Body e1=(Body) e.clone();
-				temp.add(e1);
-			}
-			BodyAll=temp;
-			for(Body b:BodyAll)
-				if(b.isChoosed)
-				{
-					curBody=b;
-					break;
-				}
-		}
-			
-	}
-	public void redo()
-	{
-		if(indesign.redoCheck()){
-			Vector<Body> temp=new Vector<Body>();
-			for(Body e:indesign.Redo())
-			{
-				Body e1=(Body) e.clone();
-				temp.add(e1);
-			}
-			BodyAll=temp;
-			for(Body b:BodyAll)
-				if(b.isChoosed)
-				{
-					curBody=b;
-					break;
-				}
-		}
-			
-	}
 	
 }
