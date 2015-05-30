@@ -19,7 +19,7 @@ import com.bn.Struct1.Struct.Vector3f;
  * @author vincent
  * 2015,1,25
  */
-public class Quaternion 
+public class Quaternion implements Cloneable 
 {
 	static final String tagQuaternionString ="Quaternion";
 	/**
@@ -216,5 +216,18 @@ public class Quaternion
     	
     	return matrix;
     }
-
+	
+	 public Object clone()
+	    {
+	        Object o=null;
+	        try
+	        {
+	            o=super.clone();
+	        }
+	        catch(CloneNotSupportedException e)
+	        {
+	            Log.e("error", e.toString());
+	        }
+	        return o;
+	    }
 }

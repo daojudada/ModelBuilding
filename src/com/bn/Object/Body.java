@@ -1,6 +1,7 @@
 package com.bn.Object;
 
 import android.opengl.Matrix;
+import android.util.Log;
 
 import com.bn.Main.Constant;
 import com.bn.Main.MatrixState;
@@ -13,7 +14,7 @@ import com.bn.Struct1.Struct.Vector3f;
 import com.bn.Util.VectorUtil;
 
 //物体基类
-public class Body
+public class Body implements Cloneable
 {
 	public Quaternion quater;
     public float xLength;//绕x轴平移距离
@@ -303,6 +304,17 @@ public class Body
   		return rtn;
   	}
   	
+  	@Override
+  	public Object clone() {
+  		Body o = null;
+		try {
+			o = (Body)super.clone();
+		} catch (CloneNotSupportedException e) {
+			 Log.e("error", e.toString());
+		}
+		o.quater=(Quaternion)quater.clone();
+		return o;
+	}
     
 	public void initVertexData() {
 	}
