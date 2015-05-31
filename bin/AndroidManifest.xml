@@ -23,12 +23,12 @@
         
         <activity android:name=".LoadActivity"
 				android:label="@string/loadactivity"
-				android:theme="@android:style/Theme.DeviceDefault.Dialog">
+				android:theme="@style/Transparent">
         </activity>
         
         <activity android:name=".SaveActivity"
 				android:label="@string/saveactivity"
-				android:theme="@android:style/Theme.DeviceDefault.Dialog">
+				android:theme="@style/Transparent">
         </activity>
         
         <activity android:name=".HelpActivity"
@@ -38,7 +38,12 @@
         
         <activity android:name=".PrintActivity"
 				android:label="@string/printactivity"
-				android:theme="@android:style/Theme.DeviceDefault.Dialog">
+				android:theme="@style/Transparent">
+        </activity>
+        
+        <activity android:name=".DrawActivity"
+				android:label="@string/printactivity"
+				android:theme="@style/Transparent">
         </activity>
     </application>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
