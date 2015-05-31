@@ -1,5 +1,7 @@
 package com.bn.Main;
 
+import java.util.Vector;
+
 import com.bn.Object.Body;
 import com.bn.Main.MainActivity;
 import com.bn.Main.MenuActivity;
@@ -24,7 +26,7 @@ import android.widget.RelativeLayout;
 
 public class MainActivity extends Activity {
 	private MySurfaceView mGLSurfaceView;
-	public Button menu, fill, object, property, delete, cylinder, cube, ball, cone, bool, jiao, bing, cha;
+	public Button menu, fill, object, property, delete, cylinder, cube, ball, cone, bool, jiao, bing, cha,redo,undo;
 	public LinearLayout first, slide1, slide2;
 	public RelativeLayout left,right;		//左右边相对布局
 	ObjectAnimator in1, out1, in2, out2;		//回收动画和下拉动画
@@ -65,6 +67,8 @@ public class MainActivity extends Activity {
 		cone = (Button)findViewById(R.id.cone);
 		
 		delete = (Button)findViewById(R.id.delete);
+		redo = (Button)findViewById(R.id.redo);
+		undo = (Button)findViewById(R.id.undo);
 		
 		first = (LinearLayout)findViewById(R.id.first_linear);
 		slide1 = (LinearLayout)findViewById(R.id.slide1);
@@ -76,6 +80,8 @@ public class MainActivity extends Activity {
 		menu.bringToFront();
 		bool.bringToFront();
 		delete.bringToFront();
+		redo.bringToFront();
+		undo.bringToFront();
 		first.bringToFront();
 		left.bringToFront();
 		right.bringToFront();
@@ -207,18 +213,41 @@ public class MainActivity extends Activity {
         delete.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v)
         	{
-        		mGLSurfaceView.BodyAll.remove(mGLSurfaceView.curBody);
-        		if(mGLSurfaceView.BodyAll.size()!=0)
+        		if(mGLSurfaceView.BodyAll.remove(mGLSurfaceView.curBody))
         		{
-        			mGLSurfaceView.curBody=mGLSurfaceView.BodyAll.get(mGLSurfaceView.BodyAll.size()-1);
-	    			//当前被选图元
-	    			for(Body b:mGLSurfaceView.BodyAll)
-	    	        {
-	    	    		if(b.isChoosed)
-	    	    			b.isChoosed=false;
-	    	        }
-	    			mGLSurfaceView.curBody.isChoosed=true;
+        			if(mGLSurfaceView.BodyAll.size()!=0)
+            		{
+            			mGLSurfaceView.curBody=mGLSurfaceView.BodyAll.get(mGLSurfaceView.BodyAll.size()-1);
+    	    			//当前被选图元
+    	    			for(Body b:mGLSurfaceView.BodyAll)
+    	    	        {
+    	    	    		if(b.isChoosed)
+    	    	    			b.isChoosed=false;
+    	    	        }
+    	    			mGLSurfaceView.curBody.isChoosed=true;   			
+            		}
+        			
+        			Vector<Body> temp=new Vector<Body>();
+	    			for(Body e:mGLSurfaceView.BodyAll)
+	    				{
+	    					Body tempBody=(Body) e.clone();
+	    					temp.add(tempBody);
+	    				}
+	    			mGLSurfaceView.indesign.addRedoStack(temp);
         		}
+        		
+        	}
+    	});
+        redo.setOnClickListener(new View.OnClickListener() {
+        	public void onClick(View v)
+        	{
+        		mGLSurfaceView.redo();
+        	}
+    	});
+        undo.setOnClickListener(new View.OnClickListener() {
+        	public void onClick(View v)
+        	{
+        		mGLSurfaceView.undo();
         	}
     	});
         object.setOnClickListener(new View.OnClickListener() {
