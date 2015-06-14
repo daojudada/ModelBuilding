@@ -61,13 +61,13 @@ public final class R {
         public static final int bing=0x7f09001b;
         public static final int bool=0x7f090018;
         public static final int cancel=0x7f090004;
-        public static final int canvas=0x7f090000;
         public static final int cha=0x7f09001c;
         public static final int cone=0x7f090021;
         public static final int cube=0x7f09001f;
         public static final int cylinder=0x7f09001e;
         public static final int delete=0x7f090022;
         public static final int draw=0x7f090026;
+        public static final int drawSurfaceView=0x7f090000;
         public static final int eraser=0x7f090002;
         public static final int file_name=0x7f090009;
         public static final int fill=0x7f090014;

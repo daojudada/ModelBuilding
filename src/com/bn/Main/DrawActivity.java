@@ -11,12 +11,13 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-
+import com.bn.Draw.*;
 public class DrawActivity extends Activity {
 	
 	private Button pen, eraser, ok, cancel;
 	private SeekBar adjust;
-	private TextView canvas, strech;
+	private TextView  strech;
+	private DrawSurfaceView drawSurfaceView;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,8 @@ public class DrawActivity extends Activity {
 		ok = (Button)findViewById(R.id.ok);
 		cancel = (Button)findViewById(R.id.cancel);
 		adjust = (SeekBar)findViewById(R.id.adjust);
-		canvas = (TextView)findViewById(R.id.canvas);
+		//drawSurfaceView = (DrawSurfaceView)findViewById(R.id.drawSurfaceView);
+		//drawSurfaceView = new DrawSurfaceView(this);
 		strech = (TextView)findViewById(R.id.stretch);
 		
 		pen.setOnClickListener(new OnClickListener() {
