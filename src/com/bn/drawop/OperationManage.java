@@ -9,7 +9,7 @@ import com.bn.drawop.Operation.Op;
 
 
 /**
- * 操作管理�?
+ * 操作管理�?
  * @author GuoJun
  *
  */
@@ -37,9 +37,9 @@ public class OperationManage {
 	public enum DrawMode{RE,ADD,FILL};
 	/**
 	 * 绘图模式
-	 * RE：重绘画�?
-	 * ADD：增量绘�?
-	 * NOW：重绘当前路�?
+	 * RE：重绘画�?
+	 * ADD：增量绘�?
+	 * NOW：重绘当前路�?
 	 */
 	private DrawMode mode;
 	
@@ -90,14 +90,6 @@ public class OperationManage {
 		stNowDraw.push(op);
 	}
 	
-	/**
-	 * push in listDraw
-	 * @param opFill
-	 */
-	public void pushFill(OpFill opFill)
-	{
-		listDraw.add(opFill);
-	}
 	
 	/**
 	 * pop out listDraw
@@ -116,20 +108,7 @@ public class OperationManage {
 	{
 		return stNowDraw.pop();
 	}
-	
-	/**
-	 * pop out opFill
-	 * @param op
-	 * @return stOperation.Last
-	 */
-	public Operation popFill()
-	{
-		Operation op = listDraw.getLast();
-		listDraw.removeLast();
-		return op;
-	}
-
-	
+		
 	
 	public OpDraw getNowDraw()
 	{
